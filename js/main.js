@@ -9,7 +9,10 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 
 
 // Markers, Circles and Polygons
-const marker = L.marker([51.5, -0.09]).addTo(mymap)
+const marker = L.marker([51.5, -0.09], {
+    title: 'This is a marker',
+    riseOnHover: true
+}).addTo(mymap)
 
 const circle = L.circle([51.508, -0.11], {
     color: 'blue',
@@ -23,7 +26,26 @@ const polygon = L.polygon([
     [51.52, -0.023],
 ]).addTo(mymap)
 
-// popups
+// Popups
 marker.bindPopup('<p>I am a pop up.</p><p>It\'s nice to meet you.</p>').openPopup()
 circle.bindPopup('<p>This is a pop up on the circle</p>')
 polygon.bindPopup('<h2>This is where the zombie outbreak is happening</h2>')
+
+// example of a standalone popup
+const popup = L.popup()
+    .setLatLng([51.5, -0.22])
+    .setContent('I am a standalone popup.')
+    .openOn(mymap)
+
+// Events
+const popupOnClick = L.popup()
+
+function onMapClick(e) {
+    console.log(e)
+    popupOnClick
+        .setLatLng(e.latlng)
+        .setContent('You clicked the map at ' + e.latlng.toString())
+        .openOn(mymap)
+}
+
+mymap.on('click', onMapClick)
