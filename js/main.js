@@ -24,7 +24,10 @@ const polygon = L.polygon([
     [51.525, -0.15],
     [51.503, -0.06],
     [51.52, -0.023],
-]).addTo(mymap)
+], {
+    color: 'blue',
+    fillColor: '#06a7cc',
+}).addTo(mymap)
 
 // Popups
 marker.bindPopup('<p>I am a pop up.</p><p>It\'s nice to meet you.</p>').openPopup()
