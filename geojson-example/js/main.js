@@ -8,7 +8,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 }).addTo(mymap)
 
 // geoJSON data types
-const geojsonFeature = {
+const geojsonFeature = [{
     "type": "Feature",
     "properties": {
         "name": "Coors Field",
@@ -19,7 +19,18 @@ const geojsonFeature = {
         "type": "Point",
         "coordinates": [-104.99404, 39.75621]
     }
-}
+}, {
+    "type": "Feature",
+    "properties": {
+        "name": "Busch Field",
+        "show_on_map": false,
+        "popupContent": "This is where the Rockies used to play"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [-104.98404, 39.74621]
+    }
+}]
 // Binding a pop up on features
 function onEachFeature(feature, layer) {
     // does this feature have a property named popupContent?
@@ -29,7 +40,10 @@ function onEachFeature(feature, layer) {
 }
 
 L.geoJSON(geojsonFeature, {
-    onEachFeature: onEachFeature
+    onEachFeature: onEachFeature,
+    filter: function(feature, layer) {
+        return feature.properties.show_on_map
+    }
 }).addTo(mymap)
 
 const geojsonLineString = [{
