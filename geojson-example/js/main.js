@@ -20,6 +20,17 @@ const geojsonFeature = {
         "coordinates": [-104.99404, 39.75621]
     }
 }
+// Binding a pop up on features
+function onEachFeature(feature, layer) {
+    // does this feature have a property named popupContent?
+    if (feature.properties && feature.properties.popupContent) {
+        layer.bindPopup(feature.properties.popupContent);
+    }
+}
+
+L.geoJSON(geojsonFeature, {
+    onEachFeature: onEachFeature
+}).addTo(mymap)
 
 const geojsonLineString = [{
     "type": "LineString",
@@ -68,11 +79,10 @@ const myStyle = {
 const myLayer = L.geoJSON().addTo(mymap)
 myLayer.addData(geojsonFeature)
 
+// Styling while adding to the layer
 L.geoJSON(geojsonLineString, {
     style: myStyle
 }).addTo(mymap)
-
-console.log(states)
 
 L.geoJSON(states, {
     style: function(feature) {
@@ -94,3 +104,19 @@ L.geoJSON(states, {
         }
     }
 }).addTo(mymap)
+
+// pointToLayer
+// const geojsonMarkerOptions = {
+//     radius: 8,
+//     fillColor: "#ff7800",
+//     color: "#000",
+//     weight: 1,
+//     opacity: 1,
+//     fillOpacity: 0.8
+// }
+
+// L.geoJSON(someGeojsonFeature, {
+//     pointToLayer: function (feature, latlng) {
+//         return L.circleMarker(latlng, geojsonMarkerOptions);
+//     }
+// }).addTo(map)
