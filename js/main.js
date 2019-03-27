@@ -22,3 +22,8 @@ const polygon = L.polygon([
     [51.503, -0.06],
     [51.52, -0.023],
 ]).addTo(mymap)
+
+// popups
+marker.bindPopup('<p>I am a pop up.</p><p>It\'s nice to meet you.</p>').openPopup()
+circle.bindPopup('<p>This is a pop up on the circle</p>')
+polygon.bindPopup('<h2>This is where the zombie outbreak is happening</h2>')
