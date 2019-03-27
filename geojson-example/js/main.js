@@ -29,8 +29,17 @@ const geojsonLineString = [{
     "coordinates": [[-105, 39.74], [-105.05, 39.702], [-105.05, 39.65]]
 }]
 
+// styling
+const myStyle = {
+    "color": "#dbf210",
+    "weight": 10,
+    "opacity": 1
+}
+
+// adding layers to the map
 const myLayer = L.geoJSON().addTo(mymap)
-const secondLayer = L.geoJSON().addTo(mymap)
 myLayer.addData(geojsonFeature)
-secondLayer.addData(geojsonLineString)
-console.log(secondLayer)
+
+L.geoJSON(geojsonLineString, {
+    style: myStyle
+}).addTo(mymap)
