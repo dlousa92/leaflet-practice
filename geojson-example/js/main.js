@@ -29,6 +29,34 @@ const geojsonLineString = [{
     "coordinates": [[-105, 39.74], [-105.05, 39.702], [-105.05, 39.65]]
 }]
 
+const states = [{
+    "type": "Feature",
+    "properties": {"party": "Republican"},
+    "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+            [-104.05, 48.99],
+            [-97.22,  48.98],
+            [-96.58,  45.94],
+            [-104.03, 45.94],
+            [-104.05, 48.99]
+        ]]
+    }
+}, {
+    "type": "Feature",
+    "properties": {"party": "Democrat"},
+    "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+            [-109.05, 41.00],
+            [-102.06, 40.99],
+            [-102.03, 36.99],
+            [-109.04, 36.99],
+            [-109.05, 41.00]
+        ]]
+    }
+}];
+
 // styling
 const myStyle = {
     "color": "#dbf210",
@@ -42,4 +70,27 @@ myLayer.addData(geojsonFeature)
 
 L.geoJSON(geojsonLineString, {
     style: myStyle
+}).addTo(mymap)
+
+console.log(states)
+
+L.geoJSON(states, {
+    style: function(feature) {
+        switch (feature.properties.party) {
+            case 'Democrat':
+                return {
+                    color: '#023382',
+                    fillColor: '#023382',
+                    fillOpacity: .05,
+                    dashArray: 10
+                }
+            case 'Republican':
+                return {
+                    color: '#ad1a1a',
+                    fillColor: '#ad1a1a',
+                    fillOpacity: .05,
+                    dashArray: 10
+                }         
+        }
+    }
 }).addTo(mymap)
