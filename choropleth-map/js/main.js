@@ -11,7 +11,6 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token='
 
 // Highlight feature function
 function highlightFeature (e) {
-    console.log(e.target)
 
     e.target.setStyle({
         weight: 5,
