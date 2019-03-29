@@ -17,7 +17,11 @@ function highlightFeature (e) {
         weight: 5,
         color: '#fff7f8',   
     })
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        e.target.bringToFront()
+    }
 }
+
 // Add event listeners to each feature
 function onEachFeature(feature, layer) {
     layer.on({
