@@ -9,9 +9,9 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token='
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>' 
 }).addTo(map)
 
-L.geoJson(statesData).addTo(map)
+L.geoJson(statesData, {style: setColor}).addTo(map)
 
-// Function to determine color to be added to state dependent on density
+// This function to determine color to be added to state dependent on density
 function getColor (density) {
 
     return density > 1000 ? '#000000':
@@ -22,6 +22,16 @@ function getColor (density) {
            density > 25 ?   '#af8a95':
            density > 10 ?   '#d6a8b6':
                             '#ffc7d8'  
+}
+// This function sets the color and style for each polygon
+function setColor(feature) {
+    return {
+        fillColor: getColor(feature.properties.density),
+        fillOpacity: .8,
+        color: 'white',
+        dashArray: 3,
+        weight: 1.5
+    }
 }
 
 console.log(getColor(545))
