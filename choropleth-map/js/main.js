@@ -62,8 +62,6 @@ function setColor(feature) {
     }
 }
 
-console.log(getColor(545))
-
 
 
 
