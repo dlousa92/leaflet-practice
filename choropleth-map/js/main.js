@@ -21,7 +21,7 @@ function highlightFeature (e) {
     }
 }
 
-// Function to reset style back to default when leaving the layer
+// Function to reset style back to default when leaving the feature
 function resetStyle (e) {
     geojson.resetStyle(e.target)
 }
@@ -30,13 +30,23 @@ function resetStyle (e) {
 function onEachFeature(feature, layer) {
     layer.on({
         mouseover: highlightFeature,
-        mouseout: resetStyle
+        mouseout: resetStyle,
+        click: centerOnLayer
     })
 }
 
+// Zoom in and center when the feature is clicked
+function centerOnLayer (e) {
+    console.log(e.target)
+    map.fitBounds(e.target.getBounds(), {
+        maxZoom: 7
+    })
+}
+
+
 geojson = L.geoJson(statesData, {
     style: setColor,
-    onEachFeature: onEachFeature
+    onEachFeature: onEachFeature,
 }).addTo(map)
 
 // This function to determine color to be added to state dependent on density
