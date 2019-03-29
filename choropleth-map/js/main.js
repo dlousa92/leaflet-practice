@@ -1,6 +1,6 @@
 console.log(statesData)
-
 // Mapbox Setup
+let geojson = {}
 const mapboxAccessToken = 'pk.eyJ1IjoiZGxvdXNhOTIiLCJhIjoiY2p0cmQyMTVkMG90NjN6bzNpY2ppdW0zeSJ9.bIlClbOREYuQ2H0br8cC8A'
 const map = L.map('mapid').setView([37.8, -96], 4)
 
@@ -22,14 +22,20 @@ function highlightFeature (e) {
     }
 }
 
+// Function to reset style back to default when leaving the layer
+function resetStyle (e) {
+    geojson.resetStyle(e.target)
+}
+
 // Add event listeners to each feature
 function onEachFeature(feature, layer) {
     layer.on({
-        mouseover: highlightFeature
+        mouseover: highlightFeature,
+        mouseout: resetStyle
     })
 }
 
-L.geoJson(statesData, {
+geojson = L.geoJson(statesData, {
     style: setColor,
     onEachFeature: onEachFeature
 }).addTo(map)
