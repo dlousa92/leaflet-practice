@@ -9,7 +9,26 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token='
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>' 
 }).addTo(map)
 
-L.geoJson(statesData, {style: setColor}).addTo(map)
+// Highlight feature function
+function highlightFeature (e) {
+    console.log(e.target)
+
+    e.target.setStyle({
+        weight: 5,
+        color: '#fff7f8',   
+    })
+}
+// Add event listeners to each feature
+function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature
+    })
+}
+
+L.geoJson(statesData, {
+    style: setColor,
+    onEachFeature: onEachFeature
+}).addTo(map)
 
 // This function to determine color to be added to state dependent on density
 function getColor (density) {
